@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Nitrokey GmbH
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Add price fields to the stock move form view -->
+    <record id="view_move_form_inherit_prices" model="ir.ui.view">
+        <field name="name">stock.move.form.inherit.prices</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_uom']" position="after">
+                <field name="currency_id" invisible="1" />
+                <field name="sale_line_id" invisible="1" />
+                <field name="price_unit" attrs="{'invisible': [('sale_line_id', '=', False)]}" options="{'no_quick_create': True}" />
+                <field name="price_subtotal" widget="monetary" options="{'currency_field': 'currency_id'}" 
+                       attrs="{'invisible': [('sale_line_id', '=', False)]}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
